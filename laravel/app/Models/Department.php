@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; //import SoftDeletes
 
-class Deparment extends Model
+
+class Department extends Model
 {
     use HasFactory;
     use SoftDeletes; //เรียกมาจากที่ประกาศ

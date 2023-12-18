@@ -10,9 +10,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
+
+                    @if(session("success"))<!--ดึง session ข้อความมาแสดง -->
+                        <div class="alert alert-success"> {{ session ('success') }}</div> <!--แสดงแถบ Alert  -->
+                    @endif
+
                     <div class="card">
                         <div class="card-header">ตารางข้อมูล</div>
                     </div>
+
                 </div>
 
                 <div class="col-md-4">
