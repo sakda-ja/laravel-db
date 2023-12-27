@@ -3,26 +3,21 @@
 // use App\Models\User; //ประกาศดึง Model เข้ามาทำงาน
 
 use App\Http\Controllers\DepartmentController; //import สร้าง Route ของ Folder department
+use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ServiceController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+//---------------------------------------------------------------------------------------------------------------//
 
 //Route ของ หน้าแรก
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+//-------------------------------------------------Dashboard--------------------------------------------------------------//
 
 //Route ของ Dashboard
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function ()
@@ -35,8 +30,22 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     })->name('dashboard');
 });
 
+//------------------------------------------middleware (เด้งกลับหน้า Login)--------------------------------------------------//
 
-//Route ของ Folder admin/department
-Route::get('/department/all' , [DepartmentController::class , 'index'] )->name('department');
-//Route ของการเพิ่มข้อมูล
-Route::post('/department/add' , [DepartmentController::class , 'store'] )->name('addDepartment');
+//Route ของ middleware เพื่อกำหนดสิทธิ์การเข้าถึง (เด้งกลับหน้า Login )
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function(){
+
+
+        Route::get('/department/all' , [DepartmentController::class , 'index'] )->name('department'); //Route ของ Folder admin/department
+        Route::post('/department/add' , [DepartmentController::class , 'store'] )->name('addDepartment');  //Route ของการเพิ่มข้อมูล
+        Route::get ('/department/edit/{id}' , [DepartmentController::class, 'edit'] ); //Route ของการดึงข้อมูลมารอแก้ไข
+        Route::post ('/department/update/{id}' , [DepartmentController::class, 'update'] ); //Route ของการแก้ไขข้อมูล
+        Route::get ('/department/softdelete/{id}' , [DepartmentController::class, 'softdelete'] ); //Route ของการลบลงถังขยะ
+        Route::get ('/department/restore/{id}' , [DepartmentController::class, 'restore'] ); //Route ของการกู้คืน
+        Route::get ('/department/delete/{id}' , [DepartmentController::class, 'delete'] ); //Route ลบถาวร
+        Route::get ('/service/all' , [ServiceController::class, 'index'] )->name('services'); //Route บริการอัปโหลด
+        Route::post('/service/add' , [ServiceController::class , 'store'] )->name('addService');  //Route ของการเพิ่มข้อมูล
+
+});
+
+//---------------------------------------------------------------------------------------------------------------//

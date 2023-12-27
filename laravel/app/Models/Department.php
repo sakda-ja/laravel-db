@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; //import SoftDeletes
 
 
+
 class Department extends Model
 {
     use HasFactory;
@@ -17,4 +18,10 @@ class Department extends Model
         'user_id',
         'department_name'
     ];
+
+
+    //Join Table PK (เชื่อมตารางความสัมพันธ์ 2 ตาราง)
+   public function user(){
+        return $this->hasOne(User::class, 'id' , 'user_id');
+    }
 }

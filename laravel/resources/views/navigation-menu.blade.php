@@ -14,12 +14,17 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{-- {{ __('Dashboard') }} --}}
-                        ชื่อผู้ใช้งาน
+                        User
                     </x-nav-link>
 
                     <x-nav-link href="{{ route('department') }}">
                         {{-- {{ __('Dashboard') }} --}}
                         Department
+                    </x-nav-link>
+
+                    <x-nav-link href="{{ route('services') }}">
+                        {{-- {{ __('Dashboard') }} --}}
+                        Service
                     </x-nav-link>
 
 

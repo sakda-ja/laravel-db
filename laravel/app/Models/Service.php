@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Service extends Model
+{
+    use HasFactory;
+
+//เพิ่มฟิลล์ Upload--------------------------------
+    protected $fillable = [
+        'service_name',
+        'server_image'
+    ];
+
+
+
+
+}
