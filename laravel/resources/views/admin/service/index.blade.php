@@ -39,7 +39,9 @@
                                 <tr>
                                     <th scope="row">{{ $services->firstItem()+$loop->index }}</th> {{--ฟังชั่นนับจำนวนเรียงตามลำดับ 1 2 3..... --}}
                                     <td>
-                                        <img src="{{asset ($row->service_image) }}" alt="" width="70px" height="70px">
+                                        <img src="{{asset($row->service_image)}}" alt="" width="50px" height="50px">
+
+
                                     </td>
                                     <td>{{$row->service_name}}</td> {{-- ใช้เรียก Join Table ตาราง 'id' กับ 'user_id' --}}
                                     <td>
@@ -50,8 +52,8 @@
                                         @endif
 
                                     </td>
-                                    <td> <a href=" {{url ('/#/edit/'.$row->id) }}" class="btn btn-warning"> แก้ไข </a></td>
-                                    <td> <a href=" {{url ('/#/softdelete/'.$row->id) }}" class="btn btn-danger"> ลบ </a></td>
+                                    <td> <a href=" {{url ('service/edit/'.$row->id) }}" class="btn btn-warning"> แก้ไข </a></td>
+                                    <td> <a href="{{url('/service/delete/'.$row->id)}}" class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลบริการนี้หรือไม่ ?')">ลบข้อมูล</a>   </td>
                                 </tr>
                                 @endforeach {{--วนลูปดึงข้อมูลในฐานข้อมูลมาแสดง ++ --}}
                             </tbody>
@@ -108,3 +110,11 @@
 
 
 </x-app-layout>
+
+
+
+
+
+
+
+
