@@ -145,7 +145,7 @@ class ServiceController extends Controller
         $delete=Service::find($id)->delete();
         return redirect()->back()->with('success',"ลบข้อมูลเรียบร้อย");
 
-
+// เปลี่ยนแปลง
     }
 
 }
