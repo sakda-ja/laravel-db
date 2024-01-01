@@ -17,11 +17,12 @@
                     <div class="card">
                         <div class="card-header">แบบฟอร์มแก้ไขข้อมูล</div>
                         <div class="card-body">
-                            <form action=" {{url ('/department/update/' .$department->id) }}" method="post" > {{--ส่งข้อมูลไปอัปเดท --}}
+                            <form action=" {{url ('/department/update/' .$department->id) }}" method="post" > {{--ส่งข้อมูลไปทำงาน Function update --}}
                                 @csrf
                                 <div class="form-group">
+
                                     <label for="department_name">ชื่อแผนก</label>
-                                    <input type="text" class="form-control" name="department_name" value="{{ $department->department_name}}"> {{-- ดึงข้อมูลมาแก้ไข--}}
+                                    <input type="text" class="form-control" name="department_name" value="{{ $department->department_name}}"> {{-- ดึงข้อมูลมาแก้ไขจาก Function edit + Model Department --}}
                                 </div>
                                 @error('department_name')
                                     <div class="my-2">

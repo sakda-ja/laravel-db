@@ -28,8 +28,10 @@
                                     <th scope="col">ภาพประกอบ</th>
                                     <th scope="col">ชื่อบริการ</th>
                                     <th scope="col">ระยะเวลาที่สร้าง</th>
+
                                     <th scope="col">แก้ไข</th>
                                     <th scope="col">ลบ</th>
+
                                     {{-- <th scope="col">เริ่มใช้งานระบบ</th> --}}
                                 </tr>
                             </thead>
@@ -39,9 +41,11 @@
                                 <tr>
                                     <th scope="row">{{ $services->firstItem()+$loop->index }}</th> {{--ฟังชั่นนับจำนวนเรียงตามลำดับ 1 2 3..... --}}
                                     <td>
-                                        <img src="{{asset($row->service_image)}}" alt="" width="50px" height="50px">
+                                        <a href="{{ asset($row->service_image) }}" target="_blank"  >
+                                            <img src="{{asset($row->service_image)}}" alt="" width="50px" height="50px" target="_blank">
 
-
+                                        </a>
+                                    </td>
                                     </td>
                                     <td>{{$row->service_name}}</td> {{-- ใช้เรียก Join Table ตาราง 'id' กับ 'user_id' --}}
                                     <td>
@@ -58,7 +62,7 @@
                                 @endforeach {{--วนลูปดึงข้อมูลในฐานข้อมูลมาแสดง ++ --}}
                             </tbody>
                         </table>
-                            {{$services->links() }} {{--pagination 1 2 3...>>>--}}
+                            {{$services->links('pagination::bootstrap-5') }} {{--pagination Bootstrap 1 2 3...>>>--}}
                     </div>
 {{------------------------------------ ตาราง ------------------------------------}}
 

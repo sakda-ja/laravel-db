@@ -13,7 +13,7 @@ class Department extends Model
     use HasFactory;
     use SoftDeletes; //เรียกมาจากที่ประกาศ
 
-
+    //ฟิลล์จากฐานข้อมูลตาราง Department ฟิลชื่อ department_name
     protected $fillable = [
         'user_id',
         'department_name'

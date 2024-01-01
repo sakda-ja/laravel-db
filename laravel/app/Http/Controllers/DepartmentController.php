@@ -69,12 +69,11 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = Department::find($id); //สั่งค้นหา id
-        //dd($department->department_name);//Debug
 
-
-         //df
+         //แสดงผล edit.blade.php
         return view('admin.department.edit' , compact('department') );
 
+        //dd($department->department_name);//Debug
     }
 
 
@@ -99,7 +98,6 @@ class DepartmentController extends Controller
                     ]
                 );
                 //เขียนตรวจสอบข้อมูลดัก------------------
-
 
 
                 //2.ค้นหาจาก id เพื่อมาแก้ไข

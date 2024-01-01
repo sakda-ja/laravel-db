@@ -12,7 +12,7 @@ class ServiceController extends Controller
 
     public function index()
     {
-           $services = Service::paginate(5); //ดึงข้อมูลมาแสดง แบบ Eloquen
+           $services = Service::orderBy('id','desc')->paginate(5); //ดึงข้อมูลมาแสดง แบบ Eloquen  /dsc น้อยไปหามาก
             return view('admin.service.index' ,compact('services') ); //path เข้าถึง index.blade.php
     }
 
@@ -20,16 +20,18 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::find($id); //สั่งค้นหา id service
-        return view('admin.service.edit' , compact('service') );
+        return view('admin.service.edit' , compact('service') ); //ฟังชั่น compact สำหรับส่งข้อมูลแบบ Array ของ PHP
 
     }
 
-//แก้ไขข้อมูล Upload image--------------------------------------------------------------------------------
+//แก้ไขข้อมูล ชื่อภาพ และ Upload image--------------------------------------------------------------------------------
     public function update(Request $request , $id){
         //ตรวจสอบข้อมูล
         $request->validate(
             [
                 'service_name'=>'required|max:255',
+
+
             ],
             [
                 'service_name.required'=>"กรุณาป้อนชื่อบริการด้วยครับ",
@@ -64,8 +66,10 @@ class ServiceController extends Controller
 
             //ลบภาพเก่าในโฟลเดอร์และอัพภาพใหม่แทนที่
             $old_image = $request->old_image; //รับมาจากฟอร์ม edit.blade.php
-            unlink($old_image); //สั่งลบ
-            $service_image->move($upload_location,$img_name.$old_image); //สั่งแทนที่ภาพใหม่เข้าไป
+
+            @unlink($old_image); //สั่งลบ
+
+            $service_image->move($upload_location,$img_name.$old_image); //สั่งแทนที่ภาพใหม่เข้าไป (ตรงนี้สำคัญมามากถ้าต้องการให้ภาพใหม่เข้ามาแทนที่เมื่อกดบันทึกแล้วแสดงผลพร้อมลบภาพเก่าทิ้งในตารางจะต้องใส่ตัวแปรก $img_name และต่อด้วย . ตามด้วยตัวแปรภาพ $old_image)
 
             //แจ้งเตือนอัปเดทสำเร็จ->กลับหน้าเดิม
             return redirect()->route('services')->with('success',"อัพเดตภาพเรียบร้อย");
@@ -75,6 +79,7 @@ class ServiceController extends Controller
             //อัพเดตชื่ออย่างเดียว
             Service::find($id)->update([
                 'service_name'=>$request->service_name,
+                //  'service_image'=>$request->service_image
             ]);
 
             //แจ้งเตือนอัปเดทสำเร็จ->กลับหน้าเดิม
@@ -93,7 +98,9 @@ class ServiceController extends Controller
         (
             [
                 'service_name'=>'required|unique:services|max:255',
-                'service_image'=>'required|mimes:jpg,jpeg,png'
+                'service_image'=>'required|mimes:jpg,jpeg,png,pdf,PDF'
+
+
             ],
 
             [
@@ -127,16 +134,17 @@ class ServiceController extends Controller
 
 
 
-
+//Delete ลบถาวร แต่ต้องมีไฟล์--------------------------------------------------------------------------------
     public function delete($id)
     {
         // ลบภาพในโฟลเดอร์
         $img = Service::find($id)->service_image; //ไปค้นจาก Models/Service.php เพื่อหา PATH ไปลบใน Folder
-        unlink($img); //สั่งลบ
+        @unlink($img); //สั่งลบ
 
         //ลบข้อมูลชื่อภาพจากฐานข้อมูล
         $delete=Service::find($id)->delete();
         return redirect()->back()->with('success',"ลบข้อมูลเรียบร้อย");
+
 
     }
 

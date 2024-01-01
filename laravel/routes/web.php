@@ -32,6 +32,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
 
 //------------------------------------------middleware (เด้งกลับหน้า Login)--------------------------------------------------//
 
+
+
+
 //Route ของ middleware เพื่อกำหนดสิทธิ์การเข้าถึง (เด้งกลับหน้า Login )
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function(){
 
@@ -43,15 +46,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         Route::get ('/department/softdelete/{id}' , [DepartmentController::class, 'softdelete'] ); //Route ของการลบลงถังขยะ
         Route::get ('/department/restore/{id}' , [DepartmentController::class, 'restore'] ); //Route ของการกู้คืน
         Route::get ('/department/delete/{id}' , [DepartmentController::class, 'delete'] ); //Route ลบถาวร
-    //Route Service
+    //Route Service CRUD ดึง เพิ่ม แก้ไข ลบถาวร อัปโหลดภาพ
         Route::get ('/service/all' , [ServiceController::class, 'index'] )->name('services'); //Route บริการอัปโหลด
         Route::post('/service/add' , [ServiceController::class , 'store'] )->name('addService');  //Route ของการเพิ่มข้อมูล
-
         Route::get ('/service/edit/{id}' , [ServiceController::class, 'edit'] ); //Route ของการดึงข้อมูลมารอแก้ไข{ของอัปโหลด}
         Route::post ('/service/update/{id}' , [ServiceController::class, 'update'] ); //Route ของการแก้ไขข้อมูล{ของอัปโหลดภาพ}
-
-        
-        Route::get('/service/delete/{id}',[ServiceController::class,'delete']);
+        Route::get('/service/delete/{id}',[ServiceController::class,'delete']);//Route ของการลบ{ของอัปโหลดภาพ}
 
 });
 
